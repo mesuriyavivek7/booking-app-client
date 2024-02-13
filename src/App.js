@@ -1,6 +1,8 @@
 //importing react router dom
 import { BrowserRouter,Routes,Route } from "react-router-dom";
 
+//importing css
+import './App.css'
 
 import Home from "./pages/home/Home";
 import List from "./pages/list/List";
