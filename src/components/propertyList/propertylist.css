@@ -30,6 +30,8 @@
 }
 .pListTitle>h1{
    font-size: 1.2rem;
+   text-transform: capitalize;
+   color: #444;
 }
 .pListTitle>h2{
     font-size:.8rem;

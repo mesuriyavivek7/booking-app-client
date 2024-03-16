@@ -16,7 +16,7 @@ export default function Home() {
       <Navbar></Navbar>
       <Header></Header>
       <div className='homeContainer'>
-        <Featured></Featured>
+          <Featured></Featured>
           <PropertyList></PropertyList>
           <FeaturedProperties></FeaturedProperties>
           <MailList></MailList>

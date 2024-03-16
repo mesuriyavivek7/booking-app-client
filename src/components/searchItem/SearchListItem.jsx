@@ -6,19 +6,21 @@ import './searchitem.css'
 //importing images
 import Room from '../../assets/room.jpg'
 
-export default function SearchListItem() {
+import { Link } from 'react-router-dom'
+
+export default function SearchListItem({item}) {
   return (
     <div className='searchItem'>
     <img src={Room}  alt='' className='siImg'></img>
     <div className='siDesc'>
-      <h1 className='siTitle'>Tower Street Apartment</h1>
-      <span className='siDistance'>500m from center</span>
+      <h1 className='siTitle'>{item.name}</h1>
+      <span className='siDistance'>{item.distance}m from center</span>
       <span className='siTaxiOp'>Free Airport Taxi</span>
       <span className='siSubtitle'>
-        Studio Apartment with Air conditionaring
+         {item.title}
       </span>
       <span className='siFeatures'>
-        Entire Studio . 1 Bathroom . 21m2 full bed
+        {item.desc}
       </span>
       <span className='siCancelOp'>Free Cancelationing</span>
       <span className='siCancelOpSubtitle'>
@@ -26,14 +28,19 @@ export default function SearchListItem() {
       </span>
     </div>
     <div className='siDetails'> 
-       <div className='siRating'>
-         <span>Excellent</span>
-         <button>8.9 </button>
-       </div>
+       {
+         item.rating &&
+         <div className='siRating'>
+           <span>Excellent</span>
+           <button>8.9 </button>
+         </div>
+       }
        <div className='siDetailTexts'>
          <span className='siPrice'>$123</span>
          <span className='siTaxOp'>Includes taxes and fees</span>
-         <button className='siCheckBtn'>See Availability</button>
+         <Link to={`/hotels/${item._id}`}>
+           <button className='siCheckBtn'>See Availability</button>
+         </Link>
        </div>
     </div>
 </div>

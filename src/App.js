@@ -7,6 +7,7 @@ import './App.css'
 import Home from "./pages/home/Home";
 import List from "./pages/list/List";
 import Hotel from "./pages/hotel/Hotel";
+import Login from "./pages/login/Login";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           </Route>
           <Route path="/hotels" element={<List/>}></Route>
           <Route path="/hotels/:id" element={<Hotel/>}></Route>
+          <Route path="/login" element={<Login></Login>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

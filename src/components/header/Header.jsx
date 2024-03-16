@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 //importing css
 import './header.css'
@@ -18,10 +18,13 @@ import { useNavigate } from 'react-router-dom';
 //importing css for range to date ui
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import { searchContext } from '../../context/searchContext';
+import { AuthContext } from '../../context/AuthContext';
 
 
 
 export default function Header({type}) {
+  const {user}=useContext(AuthContext)
   const [openDate,setOpenDate]=useState(false)
   const [openOption,setOpenOption]=useState(false)
   const [destination,setDestination]=useState("")
@@ -32,7 +35,7 @@ export default function Header({type}) {
       room:1
     }
   )
-  const [date, setDate] = useState([
+  const [dates, setDates] = useState([
     {
       startDate: new Date(),
       endDate: new Date(),
@@ -50,10 +53,12 @@ export default function Header({type}) {
 
 
   const navigate=useNavigate()
-
+  const {dispatch}=useContext(searchContext)
   const handleSearch=()=>{
-      navigate("/hotels",{state:{destination,date,option}})
+      dispatch({type:"NEW_SEARCH",payload:{destination,dates,option}})
+      navigate("/hotels",{state:{destination,dates,option}})
   }
+  
   return (
     <div className='header'>
      <div className={type==='list'?'headerContainer-listMode':'headerContainer'}>
@@ -86,7 +91,7 @@ export default function Header({type}) {
         <p className='headerDesc'>
           Get rewarded for your travel unlock instatnt 10% discount or more by making premium account
         </p>
-        <button className='headerBtn'>Sign in / Register</button>
+        {!user && <button className='headerBtn'>Sign in / Register</button>}
 
         <div className='headerSearch'>
           <div className='headerSearchItem'>
@@ -95,14 +100,14 @@ export default function Header({type}) {
           </div>
           <div className='headerSearchItem'>
              <CalendarTodayIcon style={{color:"lightgray"}}></CalendarTodayIcon>
-            <span onClick={()=>setOpenDate(!openDate)} className='headerSearchText'>{`${format(date[0].startDate,"MM/dd/yy")} to ${format(date[0].endDate,"MM/dd/yy")}`}</span>
+            <span onClick={()=>setOpenDate(!openDate)} className='headerSearchText'>{`${format(dates[0].startDate,"MM/dd/yy")} to ${format(dates[0].endDate,"MM/dd/yy")}`}</span>
             {
               openDate &&
               <DateRange
                 editableDateInputs={true} 
-                onChange={item => setDate([item.selection])}
+                onChange={item => setDates([item.selection])}
                 moveRangeOnFirstSelection={false}
-                ranges={date}
+                ranges={dates}
                 className='date'
                 minDate={new Date()}
              />
